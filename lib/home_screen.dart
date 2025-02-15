@@ -15,7 +15,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int weight = 75;
   int age = 25;
   bool isActive = false;
-  bool isMale = true;
+  bool? isMale;
+
   double bmiValue() {
     double heightInMeters = height / 100;
     return weight / (heightInMeters * heightInMeters);
@@ -44,13 +45,17 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   child: InkWell(
-                    onTap: () => setState(() {
-                      isMale = true;
-                    }),
+                    onTap: () {
+                      if (!(isMale ?? false)) {
+                        setState(() {
+                          isMale = true;
+                        });
+                      }
+                    },
                     child: Container(
                         margin: EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
-                          color: isMale
+                          color: isMale ?? false
                               ? MyColors.widgetDeepColor
                               : MyColors.widgetLightColor,
                           borderRadius: BorderRadius.circular(10.0),
@@ -85,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                         margin: EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
-                          color: isMale
+                          color: isMale ?? true
                               ? MyColors.widgetLightColor
                               : MyColors.widgetDeepColor,
                           borderRadius: BorderRadius.circular(10.0),
@@ -197,6 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FloatingActionButton(
+                              heroTag: null,
                               onPressed: () {
                                 setState(() {
                                   weight--;
@@ -210,6 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(width: 10.0),
                             FloatingActionButton(
+                              heroTag: null,
                               onPressed: () {
                                 setState(() {
                                   weight++;
@@ -257,6 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FloatingActionButton(
+                                heroTag: null,
                                 onPressed: () {
                                   setState(() {
                                     age--;
@@ -270,6 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 10.0),
                               FloatingActionButton(
+                                heroTag: null,
                                 onPressed: () {
                                   setState(() {
                                     age++;
